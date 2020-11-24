@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The task is to merge a list of intervals. Overlapping intervals must be merged, separate kept separate. See complete documentation [online](https://docs.google.com/document/d/1FS272sy-boGQ49TBFKirIbn5YLasZi1XcyAq5NZ2uBI) or [local as PDF](Coding Task 2.pdf).
+The task is to merge a list of intervals. Overlapping intervals must be merged, separate kept separate. See complete documentation [online](https://docs.google.com/document/d/1FS272sy-boGQ49TBFKirIbn5YLasZi1XcyAq5NZ2uBI) or [local as PDF](./Coding_Task_2.pdf).
 
 ## Expectations
 
