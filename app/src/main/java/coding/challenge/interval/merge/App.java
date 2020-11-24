@@ -71,6 +71,10 @@ public class App {
 	}
 
 	public List<Interval> merge(List<Interval> inputIntervals) {
+		if (inputIntervals == null) {
+			throw new IllegalArgumentException("null input cannot be processed.");
+		}
+		
 		List<Interval> resultIntervals = new ArrayList<Interval>();
 		if (inputIntervals.isEmpty()) {
 			return resultIntervals;

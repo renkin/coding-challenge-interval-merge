@@ -4,6 +4,7 @@
 package coding.challenge.interval.merge;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,6 +38,16 @@ class AppTest {
 		List<Interval> inputIntervals = new ArrayList<Interval>();
 		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
 		assertEquals(Arrays.asList(), mergeResult);
+	}
+
+	@Test
+	void givenNull_ThenExpectException() {
+		try {
+			classUnderTest.merge(null);
+			fail("IllegalArgumentException expected");
+		} catch (IllegalArgumentException e) {
+			// Expected
+		}
 	}
 
 	@Test
