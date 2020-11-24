@@ -11,7 +11,7 @@ import java.util.List;
 public class App {
 
 	/**
-	 * Simple immutable value object representing an interval. 
+	 * Simple immutable value object representing an interval.
 	 */
 	public static class Interval {
 		int start;
@@ -74,7 +74,16 @@ public class App {
 		}
 	}
 
-	public List<Interval> merge(List<Interval> inputIntervals) {
+	/**
+	 * Merges a given list of intervals.
+	 * 
+	 * Contained intervals must be merged, when overlapping, and kept separate in
+	 * the result.
+	 * 
+	 * @param inputIntervals the list of intervals to merge
+	 * @return the list of merged intervals
+	 */
+	public List<Interval> merge(final List<Interval> inputIntervals) {
 		// Verify validity of input first
 		if (inputIntervals == null) {
 			throw new IllegalArgumentException("A null input list cannot be processed.");
@@ -96,7 +105,13 @@ public class App {
 							"The input list " + inputIntervals + " with null intervals cannot be processed.");
 				}
 
-				return a.getStart() - b.getStart();
+				if (a.getStart() < b.getStart()) {
+					return -1;
+				}
+				if (a.getStart() > b.getStart()) {
+					return 1;
+				}
+				return 0;
 			}
 		});
 

@@ -115,4 +115,14 @@ class AppTest {
 			System.out.println(e);
 		}
 	}
+
+	@Test
+	void givenTwoSeparateIntervalsFromMinToMax_ThenExpectEqualIntervals() {
+		List<Interval> inputIntervals = new ArrayList<Interval>();
+		inputIntervals.add(new Interval(Integer.MIN_VALUE, 0));
+		inputIntervals.add(new Interval(1, Integer.MAX_VALUE));
+		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
+		assertEquals(Arrays.asList(new Interval(Integer.MIN_VALUE, 0), new Interval(1, Integer.MAX_VALUE)),
+				mergeResult);
+	}
 }
