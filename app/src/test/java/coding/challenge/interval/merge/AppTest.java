@@ -88,4 +88,15 @@ class AppTest {
 		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
 		assertEquals(Arrays.asList(new Interval(2, 23), new Interval(25, 30)), mergeResult);
 	}
+
+	@Test
+	void givenUnsortedFourPartlyOverlappingIntervals_ThenExpectTwoMergedInterval() {
+		List<Interval> inputIntervals = new ArrayList<Interval>();
+		inputIntervals.add(new Interval(25, 30));
+		inputIntervals.add(new Interval(2, 19));
+		inputIntervals.add(new Interval(14, 23));
+		inputIntervals.add(new Interval(4, 8));
+		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
+		assertEquals(Arrays.asList(new Interval(2, 23), new Interval(25, 30)), mergeResult);
+	}
 }

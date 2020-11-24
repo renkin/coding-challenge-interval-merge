@@ -4,8 +4,12 @@
 package coding.challenge.interval.merge;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+
+import coding.challenge.interval.merge.App.Interval;
 
 public class App {
 
@@ -71,6 +75,7 @@ public class App {
 	}
 
 	public List<Interval> merge(List<Interval> inputIntervals) {
+		// Verify validity of input first
 		if (inputIntervals == null) {
 			throw new IllegalArgumentException("null input cannot be processed.");
 		}
@@ -80,20 +85,39 @@ public class App {
 			return resultIntervals;
 		}
 		
-		Interval currentInputInterval = inputIntervals.get(0);
+		// Make sure, the input intervals are sorted by their starts
+		List<Interval> sortedInputIntervals = new ArrayList<Interval>(inputIntervals);
+		Collections.sort(sortedInputIntervals, new Comparator<Interval>() {
+			@Override
+			public int compare(Interval a, Interval b) {
+				return a.getStart() - b.getStart();
+			}
+		});
+		
+		// Take the first interval as starting point
+		Interval currentInputInterval = sortedInputIntervals.get(0);
 		int currentStart = currentInputInterval.getStart();
 		int currentEnd = currentInputInterval.getEnd();
-		for (int i = 1; i < inputIntervals.size(); i++) {
-			currentInputInterval = inputIntervals.get(i);
+		
+		// If existent start from the second interval with processing further
+		for (int i = 1; i < sortedInputIntervals.size(); i++) {
+			currentInputInterval = sortedInputIntervals.get(i);
+			
+			// Is there a gap and a new result interval must be created?
 			if (currentEnd < currentInputInterval.getStart()) {
 				resultIntervals.add(new Interval(currentStart, currentEnd));
 				currentStart = currentInputInterval.getStart();
 			}
+			
+			// No gap, but maybe a new end?
 			if (currentEnd < currentInputInterval.getEnd()) {
 				currentEnd = currentInputInterval.getEnd();
 			}
 		}
+		
+		// Don't forget the last interval
 		resultIntervals.add(new Interval(currentStart, currentEnd));
+
 		return resultIntervals;
 	}
 
