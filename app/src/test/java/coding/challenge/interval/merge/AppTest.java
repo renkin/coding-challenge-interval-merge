@@ -15,6 +15,9 @@ import org.junit.jupiter.api.Test;
 
 import coding.challenge.interval.merge.App.Interval;
 
+/**
+ * Unit test for {@link App}.
+ */
 class AppTest {
 
 	private App classUnderTest;

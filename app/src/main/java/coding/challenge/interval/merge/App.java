@@ -6,13 +6,13 @@ package coding.challenge.interval.merge;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
-
-import coding.challenge.interval.merge.App.Interval;
 
 public class App {
 
+	/**
+	 * Simple immutable value object representing an interval. 
+	 */
 	public static class Interval {
 		int start;
 		int end;
@@ -86,6 +86,7 @@ public class App {
 		}
 
 		// Make sure, the input intervals are sorted by their starts
+		// As the intervals are immutable, the input list can simply be cloned
 		List<Interval> sortedInputIntervals = new ArrayList<Interval>(inputIntervals);
 		Collections.sort(sortedInputIntervals, new Comparator<Interval>() {
 			@Override
