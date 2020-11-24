@@ -56,4 +56,25 @@ class AppTest {
 		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
 		assertEquals(Arrays.asList(new Interval(1, 4)), mergeResult);
 	}
+
+	@Test
+	void givenThreeOverlappingIntervals_ThenExpectSingleMergedInterval() {
+		List<Interval> inputIntervals = new ArrayList<Interval>();
+		inputIntervals.add(new Interval(1, 3));
+		inputIntervals.add(new Interval(2, 4));
+		inputIntervals.add(new Interval(4, 5));
+		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
+		assertEquals(Arrays.asList(new Interval(1, 5)), mergeResult);
+	}
+
+	@Test
+	void givenFourPartlyOverlappingIntervals_ThenExpectTwoMergedInterval() {
+		List<Interval> inputIntervals = new ArrayList<Interval>();
+		inputIntervals.add(new Interval(2, 19));
+		inputIntervals.add(new Interval(4, 8));
+		inputIntervals.add(new Interval(14, 23));
+		inputIntervals.add(new Interval(25, 30));
+		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
+		assertEquals(Arrays.asList(new Interval(2, 23), new Interval(25, 30)), mergeResult);
+	}
 }

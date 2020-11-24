@@ -85,7 +85,9 @@ public class App {
 				resultIntervals.add(new Interval(currentStart, currentEnd));
 				currentStart = currentInputInterval.getStart();
 			}
-			currentEnd = currentInputInterval.getEnd();
+			if (currentEnd < currentInputInterval.getEnd()) {
+				currentEnd = currentInputInterval.getEnd();
+			}
 		}
 		resultIntervals.add(new Interval(currentStart, currentEnd));
 		return resultIntervals;
