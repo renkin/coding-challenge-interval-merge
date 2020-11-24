@@ -62,6 +62,12 @@ public class App {
 				return false;
 			return true;
 		}
+
+		@Override
+		public String toString() {
+			return "Interval [start=" + start + ", end=" + end + "]";
+		}
+		
 	}
 
 	public List<Interval> merge(List<Interval> inputIntervals) {
