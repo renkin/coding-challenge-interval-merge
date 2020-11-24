@@ -28,7 +28,7 @@ class AppTest {
 		List<Interval> inputIntervals = new ArrayList<Interval>();
 		inputIntervals.add(new Interval(1, 2));
 		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
-		assertEquals(mergeResult, Arrays.asList(new Interval(1, 2)));
+		assertEquals(Arrays.asList(new Interval(1, 2)), mergeResult);
 
 	}
 
@@ -36,7 +36,7 @@ class AppTest {
 	void givenEmptyIntervalList_ThenExpectEmptyList() {
 		List<Interval> inputIntervals = new ArrayList<Interval>();
 		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
-		assertEquals(mergeResult, Arrays.asList());
+		assertEquals(Arrays.asList(), mergeResult);
 	}
 
 	@Test
@@ -45,6 +45,15 @@ class AppTest {
 		inputIntervals.add(new Interval(1, 2));
 		inputIntervals.add(new Interval(3, 4));
 		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
-		assertEquals(mergeResult, Arrays.asList(new Interval(1, 2), new Interval(3, 4)));
+		assertEquals(Arrays.asList(new Interval(1, 2), new Interval(3, 4)), mergeResult);
+	}
+
+	@Test
+	void givenTwoOverlappingIntervals_ThenExpectSingleMergedInterval() {
+		List<Interval> inputIntervals = new ArrayList<Interval>();
+		inputIntervals.add(new Interval(1, 3));
+		inputIntervals.add(new Interval(2, 4));
+		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
+		assertEquals(Arrays.asList(new Interval(1, 4)), mergeResult);
 	}
 }

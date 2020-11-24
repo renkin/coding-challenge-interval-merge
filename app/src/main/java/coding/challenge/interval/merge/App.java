@@ -4,6 +4,7 @@
 package coding.challenge.interval.merge;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class App {
@@ -67,11 +68,27 @@ public class App {
 		public String toString() {
 			return "Interval [start=" + start + ", end=" + end + "]";
 		}
-		
 	}
 
 	public List<Interval> merge(List<Interval> inputIntervals) {
-		return inputIntervals;
+		List<Interval> resultIntervals = new ArrayList<Interval>();
+		if (inputIntervals.isEmpty()) {
+			return resultIntervals;
+		}
+		
+		Interval currentInputInterval = inputIntervals.get(0);
+		int currentStart = currentInputInterval.getStart();
+		int currentEnd = currentInputInterval.getEnd();
+		for (int i = 1; i < inputIntervals.size(); i++) {
+			currentInputInterval = inputIntervals.get(i);
+			if (currentEnd < currentInputInterval.getStart()) {
+				resultIntervals.add(new Interval(currentStart, currentEnd));
+				currentStart = currentInputInterval.getStart();
+			}
+			currentEnd = currentInputInterval.getEnd();
+		}
+		resultIntervals.add(new Interval(currentStart, currentEnd));
+		return resultIntervals;
 	}
 
 	public static void main(String[] args) {
