@@ -130,7 +130,7 @@ public class App {
 				currentStart = currentInputInterval.getStart();
 			}
 
-			// No gap, but maybe a new end?
+			// Is there a new end?
 			if (currentEnd < currentInputInterval.getEnd()) {
 				currentEnd = currentInputInterval.getEnd();
 			}
