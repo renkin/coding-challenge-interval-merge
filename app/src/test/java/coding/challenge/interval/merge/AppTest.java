@@ -3,12 +3,53 @@
  */
 package coding.challenge.interval.merge;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import coding.challenge.interval.merge.App.Interval;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
-    }
+
+	private App classUnderTest;
+
+	@BeforeEach
+	void setUp() {
+		classUnderTest = new App();
+	}
+
+	@Test
+	void givenSingleInterval_ThenExpectEqualInterval() {
+		List<Interval> inputIntervals = new ArrayList<Interval>();
+		inputIntervals.add(new Interval(1, 2));
+		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
+		assertEquals(mergeResult.size(), 1);
+		assertEquals(mergeResult.get(0).getStart(), 1);
+		assertEquals(mergeResult.get(0).getEnd(), 2);
+
+	}
+
+	@Test
+	void givenEmptyIntervalList_ThenExpectEmptyList() {
+		List<Interval> inputIntervals = new ArrayList<Interval>();
+		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
+		assertEquals(mergeResult.size(), 0);
+	}
+
+	@Test
+	void givenTwoSeparateIntervals_ThenExpectEqualIntervals() {
+		List<Interval> inputIntervals = new ArrayList<Interval>();
+		inputIntervals.add(new Interval(1, 2));
+		inputIntervals.add(new Interval(3, 4));
+		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
+		assertEquals(mergeResult.size(), 2);
+		assertEquals(mergeResult.get(0).getStart(), 1);
+		assertEquals(mergeResult.get(0).getEnd(), 2);
+		assertEquals(mergeResult.get(1).getStart(), 3);
+		assertEquals(mergeResult.get(1).getEnd(), 4);
+	}
 }
