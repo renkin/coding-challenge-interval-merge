@@ -46,7 +46,7 @@ class AppTest {
 			classUnderTest.merge(null);
 			fail("IllegalArgumentException expected");
 		} catch (IllegalArgumentException e) {
-			// Expected
+			System.out.println(e);
 		}
 	}
 
@@ -98,5 +98,18 @@ class AppTest {
 		inputIntervals.add(new Interval(4, 8));
 		List<Interval> mergeResult = classUnderTest.merge(inputIntervals);
 		assertEquals(Arrays.asList(new Interval(2, 23), new Interval(25, 30)), mergeResult);
+	}
+
+	@Test
+	void givenTwoIntervalsWithOneBeingNull_ThenExpectException() {
+		List<Interval> inputIntervals = new ArrayList<Interval>();
+		inputIntervals.add(new Interval(1, 2));
+		inputIntervals.add(null);
+		try {
+			classUnderTest.merge(inputIntervals);
+			fail("IllegalArgumentException expected");
+		} catch (IllegalArgumentException e) {
+			System.out.println(e);
+		}
 	}
 }

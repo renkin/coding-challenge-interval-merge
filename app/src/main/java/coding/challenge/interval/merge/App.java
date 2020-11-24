@@ -77,44 +77,49 @@ public class App {
 	public List<Interval> merge(List<Interval> inputIntervals) {
 		// Verify validity of input first
 		if (inputIntervals == null) {
-			throw new IllegalArgumentException("null input cannot be processed.");
+			throw new IllegalArgumentException("A null input list cannot be processed.");
 		}
-		
+
 		List<Interval> resultIntervals = new ArrayList<Interval>();
 		if (inputIntervals.isEmpty()) {
 			return resultIntervals;
 		}
-		
+
 		// Make sure, the input intervals are sorted by their starts
 		List<Interval> sortedInputIntervals = new ArrayList<Interval>(inputIntervals);
 		Collections.sort(sortedInputIntervals, new Comparator<Interval>() {
 			@Override
 			public int compare(Interval a, Interval b) {
+				if (a == null || b == null) {
+					throw new IllegalArgumentException(
+							"The input list " + inputIntervals + " with null intervals cannot be processed.");
+				}
+
 				return a.getStart() - b.getStart();
 			}
 		});
-		
+
 		// Take the first interval as starting point
 		Interval currentInputInterval = sortedInputIntervals.get(0);
 		int currentStart = currentInputInterval.getStart();
 		int currentEnd = currentInputInterval.getEnd();
-		
+
 		// If existent start from the second interval with processing further
 		for (int i = 1; i < sortedInputIntervals.size(); i++) {
 			currentInputInterval = sortedInputIntervals.get(i);
-			
+
 			// Is there a gap and a new result interval must be created?
 			if (currentEnd < currentInputInterval.getStart()) {
 				resultIntervals.add(new Interval(currentStart, currentEnd));
 				currentStart = currentInputInterval.getStart();
 			}
-			
+
 			// No gap, but maybe a new end?
 			if (currentEnd < currentInputInterval.getEnd()) {
 				currentEnd = currentInputInterval.getEnd();
 			}
 		}
-		
+
 		// Don't forget the last interval
 		resultIntervals.add(new Interval(currentStart, currentEnd));
 
@@ -123,7 +128,13 @@ public class App {
 
 	public static void main(String[] args) {
 		List<Interval> inputIntervals = new ArrayList<Interval>();
-		inputIntervals.add(new Interval(1, 2));
-		System.out.println(new App().merge(inputIntervals));
+		inputIntervals.add(new Interval(2, 19));
+		inputIntervals.add(new Interval(4, 8));
+		inputIntervals.add(new Interval(14, 23));
+		inputIntervals.add(new Interval(25, 30));
+		System.out.println("Input intervals: " + inputIntervals);
+
+		List<Interval> mergeResult = new App().merge(inputIntervals);
+		System.out.println("Merge result: " + mergeResult);
 	}
 }
